@@ -24,7 +24,6 @@ public class PowerUpController : MonoBehaviour
 
     private float _decay = -999f;
     [SerializeField] private float timeToDecay;
-    LTDescr tween = null;
 
     void Start()
     {

@@ -14,37 +14,53 @@ public class ShotManager : MonoBehaviour
 
     private List<BulletController> _bulletPool;
     private List<BulletController> _inactiveBullet;
-
+    private bool initialized = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        _bulletPool = new List<BulletController>();
-        _inactiveBullet = new List<BulletController>();
+        InitializeLists();
     }
 
-    public void EnemyShoot(Vector3 spawnPosition, float speed, float angle, float size)
+    void InitializeLists()
     {
-        BulletAtAngle(spawnPosition, angle, speed, size);
+        if (!initialized)
+        {
+            if (_bulletPool == null)
+            {
+                _bulletPool = new List<BulletController>();
+            }
+            if (_inactiveBullet == null)
+            {
+                _inactiveBullet = new List<BulletController>();
+            }
+            initialized = true;
+        }
     }
 
-    public void BulletAtAngle(Vector3 spawnPosition, float angle, float bulletSpeed, float size)
+    public void EnemyShoot(Vector3 spawnPosition, float speed, float angle, float size, Color bulletColor)
     {
+        BulletAtAngle(spawnPosition, angle, speed, size, bulletColor);
+    }
+
+    public void BulletAtAngle(Vector3 spawnPosition, float angle, float bulletSpeed, float size, Color bulletColor)
+    {
+        InitializeLists();
         if (_inactiveBullet.Count == 0)
         {
             GameObject newBullet = Instantiate(_bulletPrefab, spawnPosition, Quaternion.Euler(0, 0, angle), null);
             BulletController newBulletController = newBullet.GetComponent<BulletController>();
-            newBulletController.SetupBullet(angle, bulletSpeed, size);
+            newBulletController.SetupBullet(angle, bulletSpeed, size, bulletColor);
             newBulletController.SetBulletExplosion(bulletExplosion);
             _bulletPool.Add(newBulletController);
         }
         else
         {
-            ReuseOlderBullet(spawnPosition, angle, bulletSpeed, size);
+            ReuseOlderBullet(spawnPosition, angle, bulletSpeed, size, bulletColor);
         }
     }
 
-    public void ReuseOlderBullet(Vector3 spawnPosition, float angle, float bulletSpeed, float size)
+    public void ReuseOlderBullet(Vector3 spawnPosition, float angle, float bulletSpeed, float size, Color bulletColor)
     {
         if (_inactiveBullet.Count > 0)
         {
@@ -52,7 +68,7 @@ public class ShotManager : MonoBehaviour
             oldBullet.Alive(true);
             oldBullet.gameObject.transform.position = spawnPosition;
             oldBullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-            oldBullet.SetupBullet(angle, bulletSpeed, size);
+            oldBullet.SetupBullet(angle, bulletSpeed, size, bulletColor);
             oldBullet.SetBulletExplosion(bulletExplosion);
             _inactiveBullet.RemoveAt(0);
         }

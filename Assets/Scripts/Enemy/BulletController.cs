@@ -6,12 +6,16 @@ public class BulletController : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody2D _rb;
+    private SpriteRenderer _sr;
     private float _speed;
     private float _size;
     private Vector3 _direction;
     private bool _isActive;
     private GameObject explosionAnimation;
     private bool _playerBullet;
+
+    private Color _bulletColor;
+    private float _bulletScale;
 
     private float _bottomThreshold;
 
@@ -20,13 +24,15 @@ public class BulletController : MonoBehaviour
         _bottomThreshold = GameController.Instance.GetBottomThreshold();
     }
 
-    public void SetupBullet(float angle, float speed, float size){
+    public void SetupBullet(float angle, float speed, float size, Color color){
         
         _direction = transform.up;
         _speed = speed;
         _size = size;
+        _bulletColor = color;
         _rb = GetComponent<Rigidbody2D>();
-
+        _sr = GetComponent<SpriteRenderer>();
+        _sr.color = color;
 
         _rb.velocity = _direction * _speed;
         transform.localScale = new Vector3(size, size, 1f);
@@ -67,5 +73,15 @@ public class BulletController : MonoBehaviour
 
     public void SetBulletExplosion(GameObject explosion){
         explosionAnimation = explosion;
+    }
+
+    public void SetBulletColor(Color color)
+    {
+        _bulletColor = color;
+    }
+
+    public void SetBulletScale(float scale)
+    {
+        _bulletScale = scale;
     }
 }

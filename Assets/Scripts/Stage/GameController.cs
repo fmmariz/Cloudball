@@ -23,10 +23,10 @@ public class GameController : MonoBehaviour
         }
     }
 
+    [Header("Colliders & Thresholds")]
     [SerializeField]
     public GameObject _ground;
     public GameObject _ceiling;
-
     [SerializeField]
     public GameObject _lWall;
     public GameObject _rWall;
@@ -34,19 +34,22 @@ public class GameController : MonoBehaviour
     private float _leftThreshold;
     private float _rightThreshold;
 
+    [Header("Backgrounds")]
     [SerializeField]
     private SpriteRenderer _background;
     [SerializeField]
     private List<Sprite> _backroundSprites;
 
-
     private BlockManager _blockManager;
+    [HideInInspector]
     public ScoreManager scoreManager;
+    [HideInInspector]
     public UIManager uiManager;
+    [HideInInspector] public PowerUpManager powerUpManager;
+    [HideInInspector] public ShotManager shotManager;
+    [HideInInspector] public SFXManager soundManager;
+    [Header("Player")]
     public PaddleController player;
-    public PowerUpManager powerUpManager;
-    public ShotManager shotManager;
-    public SFXManager soundManager;
 
     void Start()
     {
@@ -65,17 +68,24 @@ public class GameController : MonoBehaviour
 
         _blockManager = GetComponent<BlockManager>();
 
-        switch (StageControlSingleton.instance.GetStage())
+        if (StageControlSingleton.instance != null)
         {
-            case 1:
-                InitiateStage1();
-                break;
-            case 2:
-                InitiateStage2();
-                break;
-            case 3:
-                InitiateStage3();
-                break;
+            switch (StageControlSingleton.instance.GetStage())
+            {
+                case 1:
+                    InitiateStage1();
+                    break;
+                case 2:
+                    InitiateStage2();
+                    break;
+                case 3:
+                    InitiateStage3();
+                    break;
+            }
+        }
+        else
+        {
+            InitiateStage1();
         }
 
 
@@ -107,7 +117,7 @@ public class GameController : MonoBehaviour
                 _blockManager.CreateBlockAt(new Vector2(x, y), 4 - i, getPowerUp);
             }
         }
-        //StartCoroutine(Droplets());
+        StartCoroutine(Droplets());
     }
 
     public void InitiateStage2()
@@ -174,7 +184,8 @@ public class GameController : MonoBehaviour
                 0f),
                 1f,
                 180f,
-                1);
+                2.0f,
+                Color.cyan);
             yield return new WaitForSeconds(0.3f);
         }
     }

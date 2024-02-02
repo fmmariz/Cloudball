@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 9171279227371200857}
   - component: {fileID: 5590997230653661336}
   - component: {fileID: 2644096151352333709}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bulletPrefab
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.00205, y: -3.6605368, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: 229b9867cb1b05f4c927082a8c793986, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.16, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
@@ -129,7 +129,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -146,9 +146,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0043091774, y: -0.060329437}
+  m_Offset: {x: -0.00091201067, y: 0.06537187}
   serializedVersion: 2
-  m_Radius: 0.095360756
+  m_Radius: 0.095360935
 --- !u!114 &2644096151352333709
 MonoBehaviour:
   m_ObjectHideFlags: 0

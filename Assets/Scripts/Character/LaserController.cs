@@ -107,6 +107,12 @@ public class LaserController : MonoBehaviour
             {
                 bc.DamageByLaser();
             }
+        }else if (collision.CompareTag("bullet"))
+        {
+            if(collision.TryGetComponent<BulletController>(out BulletController bc))
+            {
+                bc.Alive(false);
+            }
         }
     }
 

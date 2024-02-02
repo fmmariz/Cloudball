@@ -11,6 +11,7 @@ TagManager:
   - edge
   - edge_ground
   - laser
+  - bullet
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - StageUI
   - Blocks
-  - 
+  - Bullets
   - 
   - 
   - 

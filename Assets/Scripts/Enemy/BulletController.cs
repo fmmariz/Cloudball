@@ -8,6 +8,8 @@ public class BulletController : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
     private float _speed;
+    private float _acceleration = 0.1f;
+    private float _maxSpeed = 5f;
     private float _size;
     private Vector3 _direction;
     private bool _isActive;
@@ -38,21 +40,42 @@ public class BulletController : MonoBehaviour
         transform.localScale = new Vector3(size, size, 1f);
     }
 
-    public void SetupStartResistant(){
-
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        if(transform.position.y <= _bottomThreshold)
+        if (transform.position.y <= _bottomThreshold)
         {
             Alive(false);
         }
+
+        if (_rb != null)
+        {
+            Vector3 speed = _rb.velocity;
+            float mag = speed.magnitude;
+            mag += _acceleration;
+            if (mag >= _maxSpeed)
+            {
+                speed = speed.normalized * _maxSpeed;
+            }
+            else
+            {
+                speed = mag * speed.normalized;
+            }
+            _rb.velocity = speed;
+
+        }
     }
 
+   public void SetupStartResistant(){
+
+    }
+
+
+
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag.Equals("screenEdge")){
+        if(other.gameObject.tag.Equals("edge_ground")
+            || other.gameObject.tag.Equals("ball")
+            || other.gameObject.tag.Equals("laser")
+            || other.gameObject.tag.Equals("paddle")){
             Alive(false);
         }
     }

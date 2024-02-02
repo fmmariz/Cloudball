@@ -112,9 +112,5 @@ public class BlockController : MonoBehaviour
             damageByLaserCountdown = damageByLaserDelay;
             DealDamage(1, Vector3.up, new Vector3(5f, 0f, 0f));
         }
-        else
-        {
-            Debug.Log("Cooling down from damage");
-        }
     }
 }

@@ -86,6 +86,8 @@ public class GameController : MonoBehaviour
         else
         {
             InitiateStage1();
+            GameController.Instance.powerUpManager.
+                    SpawnPowerUp(player.transform.position,PowerUpManager.PowerUpType.LASER, 2);
         }
 
 

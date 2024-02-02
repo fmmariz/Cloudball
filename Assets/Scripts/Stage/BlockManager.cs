@@ -28,7 +28,6 @@ public class BlockManager : MonoBehaviour
         BlockController block = Instantiate(_blockPrefab, position, Quaternion.identity);
         if (powerUpWithin != null)
         {
-            Debug.Log("Power up assigned: "+powerUpWithin);
             block.SetPowerUpDrop((PowerUpManager.PowerUpType) powerUpWithin);
         }
             block.SetCloudLevel(level);
